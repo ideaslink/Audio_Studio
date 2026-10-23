@@ -1,0 +1,23 @@
+[project]
+name = "audiohub"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "h5sharp@hotmail.com", email = "aplusview@gmail.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "breeze-blue>=0.21.1",
+    "espeakng>=1.0.5",
+]
+
+[project.scripts]
+audiohub = "audiohub:main"
+
+[build-system]
+requires = ["uv_build>=0.13.5,<0.14.0"]
+build-backend = "uv_build"
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]

@@ -1,0 +1,77 @@
+"""
+unit tests for text-to-speech processing
+
+__author__ = "vci"
+__copyright__ = "Copyright 2026, vci"
+__license__ = "MIT"
+__version__ = "1.0.0.10"
+__maintainer__ = "vci"
+__email__ = "modernui.app@gmail.com"
+__status__ = "development"
+__reference__ = "vci"
+
+"""
+
+from audiohub.shared.i_tts_proc import AbcTTSProc # shared.i_tts_proc import AbcTTSProc
+# from tts_hub.espeak import text_to_speech
+import audiohub.tts_hub.espeak
+import audiohub.tts_hub.breeze_blue
+
+import unittest
+import pytest
+import os
+import sys
+from pathlib import Path
+
+
+class TTSUtilTest(unittest.TestCase):
+    """
+    unit test for TTS
+    """
+
+    def __init__(self, *args, **kvargs):
+        super().__init__(*args, **kvargs)
+        self.filepath = "assets\\result-tts.wav"
+
+    def setUp(self):
+        pass
+
+    @pytest.mark.skip(reason="skip this test for now")
+    @unittest.skip("skip this test for now")
+    def test_text_to_speech(self):
+        """
+        test text to speech
+        """
+        # test tts with espeak-ng
+        ttslib: AbcTTSProc = audiohub.tts_hub.espeak.text_to_speech.TTSProc()
+        # text = 'ni3 hao3, shi4 jie4!'
+        # 'welcome 你好，欢迎来到上海！'
+        text = "welcome to Miami of Florida, the sunshine state. Enjoy the beach and the sun!"
+        data = {"voice": "en", "wpm": 170}
+        audiohub.tts_hub.text_to_speech.TTSProcessingTextToSpeech(ttslib).text_to_speech(text, file_out=self.filepath, **data)
+        # text_to_speech.TTSProcessingTextToSpeech(ttslib).text_to_speech(text, file_out=self.filepath, **data)
+        self.assertTrue(Path(self.filepath).exists())
+
+    # @pytest.mark.skip(reason="skip this test for now")
+    def test_text_to_speech_breeze_blue(self):
+        """
+        test text to speech using breeze blue
+        """
+
+        self.filepath = "assets\\result-tts-breeze.mp3"
+
+        # test tts with espeak-ng
+        ttslib: AbcTTSProc = audiohub.tts_hub.breeze_blue.text_to_speech.TTSProc()
+        # text = 'ni3 hao3, shi4 jie4!'
+        # 'welcome 你好，欢迎来到上海！'
+        text = "welcome to Miami of Florida, the sunshine state. Enjoy the beach and the sun!"
+        data = {"model_id": "breeze-tts-2", "wpm": 170}
+        audiohub.tts_hub.text_to_speech.TTSProcessingTextToSpeech(ttslib).text_to_speech(text, file_out=self.filepath, **data)
+        self.assertTrue(Path(self.filepath).exists())
+
+    def tearDown(self) -> None:
+        pass
+
+
+if __name__ == '__main__':
+    unittest.main()
