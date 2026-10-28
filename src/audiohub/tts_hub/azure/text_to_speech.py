@@ -37,10 +37,11 @@ class TTSProc(AbcTTSProc):
         :return: None
         """
         api_key = os.getenv(AZURE_SPEECH_VARS.get("API_KEY", ""))
-        
         region = "eastus"
         voice = 'en-US-AriaNeural'
         wpm = 60
+        print(f"azure api key: {api_key}, keyname: {AZURE_SPEECH_VARS.get('API_KEY', '')}")
+        
         # apply attributes
         if "region" in kvargs:
             region = kvargs['region']
@@ -51,7 +52,7 @@ class TTSProc(AbcTTSProc):
 
         speech_config = speechsdk.SpeechConfig(subscription=api_key, region=region)
         speech_config.speech_synthesis_voice_name = voice
-        audio_config = speechsdk.audio.AudioOutputConfig(filename=file_out)
+        audio_config = speechsdk.audio.AudioOutputConfig(filename=str(file_out))
 
         # use the default speaker as audio output.
         speech_synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config, audio_config=audio_config)

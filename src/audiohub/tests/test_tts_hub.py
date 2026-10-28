@@ -24,6 +24,7 @@ from audiohub.shared.i_tts_proc import AbcTTSProc # shared.i_tts_proc import Abc
 
 from audiohub.tts_hub.breeze_blue import text_to_speech as tts_breeze_blue
 from audiohub.tts_hub.espeak import text_to_speech as tts_espeak
+from audiohub.tts_hub.azure import text_to_speech as tts_azure
 import audiohub.tts_hub.text_to_speech
 
 
@@ -63,7 +64,7 @@ class TTSUtilTest(unittest.TestCase):
         # text_to_speech.TTSProcessingTextToSpeech(ttslib).text_to_speech(text, file_out=self.filepath, **data)
         self.assertTrue(Path(self.filepath).exists())
 
-    @pytest.mark.skip(reason="skip this test for now")
+    # @pytest.mark.skip(reason="skip this test for now")
     def test_text_to_speech_breeze_blue(self):
         """
         test text to speech using breeze blue
@@ -76,11 +77,11 @@ class TTSUtilTest(unittest.TestCase):
         # text = 'ni3 hao3, shi4 jie4!'
         # 'welcome 你好，欢迎来到上海！'
         text = "welcome to Miami of Florida, the sunshine state. Enjoy the beach and the sun!"
-        data = {"model_id": "breeze-tts-2", "wpm": 170}
+        data = {"model_id": "breeze-tts-2", "wpm": 170, "voice": "voc_xeh3w54cqvnp"}
         audiohub.tts_hub.text_to_speech.TTSProcessingTextToSpeech(ttslib).text_to_speech(text, file_out=self.filepath, **data)
         self.assertTrue(Path(self.filepath).exists())
 
-    # @pytest.mark.skip(reason="skip this test for now")
+    @pytest.mark.skip(reason="skip this test for now")
     def test_text_to_speech_azure(self):
         """
         test text to speech using Azure
@@ -89,9 +90,10 @@ class TTSUtilTest(unittest.TestCase):
         self.filepath = Path("assets/result-tts-azure.wav")
 
         # test tts with espeak-ng
-        ttslib: AbcTTSProc = tts_breeze_blue.TTSProc()
+        ttslib: AbcTTSProc = tts_azure.TTSProc()
         text = "welcome to Miami of Florida, the sunshine state. Enjoy the beach and the sun!"
-        data = {"region": "eastus", "wpm": 170, "voice": "en-US-JennyNeural"}
+        voice = "en-US-Andrew:DragonHDLatestNeural" # "en-US-Jenny:DragonHDLatestNeural" # "en-US-JennyNeural"
+        data = {"region": "eastus", "wpm": 170, "voice": voice}
         audiohub.tts_hub.text_to_speech.TTSProcessingTextToSpeech(ttslib).text_to_speech(text, file_out=self.filepath, **data)
         self.assertTrue(Path(self.filepath).exists())
 

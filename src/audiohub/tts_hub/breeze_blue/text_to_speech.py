@@ -47,15 +47,24 @@ class TTSProc(AbcTTSProc):
         # voices = client.voices.search(search="narrator")
         # print([(v["voice_id"], v["name"]) for v in voices["voices"]])
 
-        # voice variables
-        # voicd_id = "voc_xeh3w54cqvnp"
-        voice_id = "voc_chrdprqdsytw" # ava
+        wpm = 60
+        voice_id = 'voc_xeh3w54cqvnp'
+        model_id = 'breeze-tts-2'
+        # apply attributes
+        if "wpm" in kvargs:
+            wpm = int(kvargs['wpm'])
+        if "voice" in kvargs:
+            voice_id = str(kvargs['voice'])
+        if "model_id" in kvargs:
+            model_id = str(kvargs['model_id'])
+        # voice_id = "voc_chrdprqdsytw" # ava
 
         audio = client.text_to_speech.convert(
             voice_id=voice_id,
             text= text,
-            model_id="breeze-tts-2",
+            model_id=model_id,
             output_format="mp3",
+            # wpm=wpm
         )
 
         save(audio, file_out)
