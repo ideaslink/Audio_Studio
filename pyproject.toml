@@ -8,6 +8,7 @@ authors = [
 ]
 requires-python = ">=3.13"
 dependencies = [
+    "azure-cognitiveservices-speech>=1.53.0",
     "breeze-blue>=0.21.1",
     "espeakng>=1.0.5",
 ]

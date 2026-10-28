@@ -30,3 +30,7 @@ The above setup is to avoid revealing sensitive information in your codebase.
 BREEZE_BLUE_VARS = {
     "API_KEY": "BREEZE_API_KEY"
 }
+
+AZURE_SPEECH_VARS = {
+    "API_KEY": "AZUREVOICE_API_KEY"
+}

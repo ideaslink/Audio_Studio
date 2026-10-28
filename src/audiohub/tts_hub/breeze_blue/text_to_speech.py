@@ -39,8 +39,8 @@ class TTSProc(AbcTTSProc):
         """
         # pass
 
-        api_key = os.getenv(BREEZE_BLUE_VARS.get("API_KEY", "") )
-        print(f"breeze blue api key: {api_key}")
+        api_key = os.getenv(BREEZE_BLUE_VARS.get("API_KEY", ""))
+        # print(f"breeze blue api key: {api_key}, keyname: {BREEZE_BLUE_VARS.get('API_KEY', '')}")
         client = BreezeBlue(api_key=api_key)
 
         # # display voice id/name
