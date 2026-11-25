@@ -40,7 +40,7 @@ class TTSProc(AbcTTSProc):
         region = "eastus"
         voice = 'en-US-AriaNeural'
         wpm = 60
-        print(f"azure api key: {api_key}, keyname: {AZURE_SPEECH_VARS.get('API_KEY', '')}")
+        # print(f"azure api key: {api_key}, keyname: {AZURE_SPEECH_VARS.get('API_KEY', '')}")
         
         # apply attributes
         if "region" in kvargs:
@@ -59,6 +59,11 @@ class TTSProc(AbcTTSProc):
         
 
         result = speech_synthesizer.speak_text_async(text).get()
+
+        # # retrieve voice information
+        # voice_result = speech_synthesizer.get_voices_async("zh-CN").get()
+        # for v in voice_result.voices:
+        #     print(f"Voice: {v.short_name}, gender: {v.gender}, locale: {v.locale}")
 
         # Check result
         if result.reason == speechsdk.ResultReason.SynthesizingAudioCompleted:
